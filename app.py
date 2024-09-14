@@ -47,12 +47,12 @@ def welcome():
     else:
         # If user is not logged in, redirect to login page
         return redirect(url_for('login'))
+    
 def check_password_strength(password):
-    # At least one digit and at least 6 characters long (no special character or uppercase letter requirement)
-    return re.match(r'^(?=.*\d).{6,}$', password) is not None
+    return re.match(r'^(?=.*\d).{4,}$', password) is not None
 
 
-# Route for login result
+# Route for login
 @app.route("/result", methods=["POST", "GET"])
 def result():
     if request.method == "POST":

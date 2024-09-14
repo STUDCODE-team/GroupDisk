@@ -11,7 +11,7 @@
     <script>
     function checkPasswordStrength(password) {
         // At least one lower case letter, one upper case letter, one digit, one special character, and at least 8 characters long
-        var re = /^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
+        var re = '^(?=.*\d).{4,}$';
         return re.test(password);
     }
 
