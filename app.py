@@ -5,6 +5,7 @@ import pyrebase
 from flask import Flask, flash, redirect, render_template, request, session, abort, url_for
 from datetime import datetime
 from dotenv import load_dotenv
+from utils import *
 
 
 load_dotenv()
@@ -29,14 +30,17 @@ firebase = pyrebase.initialize_app(firebase_config)
 auth = firebase.auth()
 db = firebase.database()
 # Route for the login page
+
+
+
 @app.route("/")
 def login():
-    return render_template("login.html")
+    return renderIfNotLoggedIn('login.html', 'welcome')
 
 # Route for the signup page
 @app.route("/signup")
 def signup():
-    return render_template("signup.html")
+    return renderIfNotLoggedIn('signup.html', 'welcome')
 
 # Route for the welcome page
 @app.route("/welcome")
@@ -80,11 +84,7 @@ def result():
             print("Error occurred: ", e)
             return redirect(url_for('login'))
     else:
-        # If user is logged in, redirect to welcome page
-        if session.get("is_logged_in", False):
-            return redirect(url_for('welcome'))
-        else:
-            return redirect(url_for('login'))
+        return redirectIfNotLoggedIn('login', 'welcome')
 
 # Route for user registration
 @app.route("/register", methods=["POST", "GET"])
@@ -114,11 +114,7 @@ def register():
             print("Error occurred during registration: ", e)
             return redirect(url_for('signup'))
     else:
-        # If user is logged in, redirect to welcome page
-        if session.get("is_logged_in", False):
-            return redirect(url_for('welcome'))
-        else:
-            return redirect(url_for('signup'))
+        return redirectIfNotLoggedIn('signup', 'welcome')
 
 # Route for password reset
 @app.route("/reset_password", methods=["GET", "POST"])
