@@ -9,57 +9,41 @@
             display: flex;
             flex-direction: column;
             overflow: hidden;
-            align-items: start;
+            align-items: center;
             font-family: Montserrat Alternates, -apple-system, Roboto, Helvetica, sans-serif;
-            padding: 51px 47px;
-        }
-
-        @media (max-width: 991px) {
-            .sidebar {
-                padding: 0 20px;
-            }
+            padding: 80px 20px;
+            width: min-content;
         }
 
         .header {
             display: flex;
             width: 100%;
-            max-width: 1323px;
             gap: 20px;
+            height: 1%;
             flex-wrap: wrap;
             justify-content: space-between;
         }
 
-        @media (max-width: 991px) {
-            .header {
-                max-width: 100%;
-            }
-        }
 
         .logo-container {
             display: flex;
-            gap: 21px;
-            font-size: 40px;
+            font-size: 20px;
             color: rgba(255, 64, 64, 1);
             font-weight: 600;
             white-space: nowrap;
-        }
-
-        @media (max-width: 991px) {
-            .logo-container {
-                white-space: initial;
-            }
+            padding: 30px;
         }
 
         .logo {
-            aspect-ratio: 1.05;
             object-fit: contain;
             object-position: center;
-            width: 81px;
+            width: 50px;
         }
 
         .brand-name {
             flex-basis: auto;
             margin: auto 0;
+            margin-left: 21px;
         }
 
         .search-bar {
@@ -72,15 +56,9 @@
             font-weight: 400;
             flex-wrap: wrap;
             margin: auto 0;
-            padding: 17px 30px;
+            padding: 20px 30px;
         }
 
-        @media (max-width: 991px) {
-            .search-bar {
-                max-width: 100%;
-                padding: 0 20px;
-            }
-        }
 
         .search-icon {
             background-color: rgba(217, 217, 217, 0);
@@ -96,11 +74,6 @@
             flex-grow: 1;
         }
 
-        @media (max-width: 991px) {
-            .search-placeholder {
-                max-width: 100%;
-            }
-        }
 
         .nav-item {
             color: rgba(255, 64, 64, 1);
@@ -108,42 +81,24 @@
             font-weight: 500;
             margin: 32px 0 0 26px;
             text-decoration: none;
-        }
-
-        @media (max-width: 991px) {
-            .nav-item {
-                margin-left: 10px;
-            }
+            padding: 7px 26px;
         }
 
         .nav-item-active {
             border-radius: 28px;
             background-color: rgba(255, 64, 64, 1);
-            margin-top: 92px;
             font-size: 24px;
             color: rgba(255, 255, 255, 1);
-            font-weight: 600;
-            white-space: nowrap;
+            font-weight: 500;
+            text-decoration: none;
             padding: 7px 26px;
         }
 
-        @media (max-width: 991px) {
-            .nav-item-active {
-                margin-top: 40px;
-                white-space: initial;
-                padding: 0 20px;
-            }
-        }
 
         .nav-item-logout {
             margin: 500px 0 0 22px;
         }
 
-        @media (max-width: 991px) {
-            .nav-item-logout {
-                margin: 40px 0 0 10px;
-            }
-        }
 
         .visually-hidden {
             position: absolute;
@@ -159,18 +114,19 @@
     </style>
 </head>
 <body>
+    <header class="header">
+        <div class="logo-container">
+            <img loading="lazy" src="https://cdn.builder.io/api/v1/image/assets/TEMP/b6179c0a918df40107ca5f27dd9a3327c93b81806396fe59c1254bf221461151?placeholderIfAbsent=true&apiKey=4d779cf73276406d9fd3a7da7d5ce040" class="logo" alt="GroupDisk logo" />
+            <h1 class="brand-name">GroupDisk</h1>
+        </div>
+        <form class="search-bar" role="search">
+            <label for="search-input" class="visually-hidden">Search files</label>
+            <span class="search-icon" aria-hidden="true"></span>
+            <input type="search" id="search-input" class="search-placeholder" placeholder="Search files" />
+        </form>
+    </header>
     <nav class="sidebar" aria-label="Main Navigation">
-        <header class="header">
-            <div class="logo-container">
-                <img loading="lazy" src="https://cdn.builder.io/api/v1/image/assets/TEMP/b6179c0a918df40107ca5f27dd9a3327c93b81806396fe59c1254bf221461151?placeholderIfAbsent=true&apiKey=4d779cf73276406d9fd3a7da7d5ce040" class="logo" alt="GroupDisk logo" />
-                <h1 class="brand-name">GroupDisk</h1>
-            </div>
-            <form class="search-bar" role="search">
-                <label for="search-input" class="visually-hidden">Search files</label>
-                <span class="search-icon" aria-hidden="true"></span>
-                <input type="search" id="search-input" class="search-placeholder" placeholder="Search files" />
-            </form>
-        </header>
+
         <a href="#overview" class="nav-item nav-item-active">overview</a>
         <a href="#my-files" class="nav-item">my files</a>
         <a href="#shared" class="nav-item">shared</a>
@@ -178,5 +134,25 @@
         <a href="#deleted" class="nav-item">deleted</a>
         <a href="#logout" class="nav-item nav-item-logout">logout</a>
     </nav>
+
+    <div>
+        
+    </div>
+
 </body>
+<script>
+    // Получаем все элементы меню
+    const navItems = document.querySelectorAll('.nav-item');
+
+    // Добавляем событие клика на каждый пункт меню
+    navItems.forEach(item => {
+        item.addEventListener('click', function() {
+            // Удаляем класс 'nav-item-active' у текущего активного элемента
+            document.querySelector('.nav-item-active').classList.remove('nav-item-active');
+
+            // Добавляем класс 'nav-item-active' к элементу, на который кликнули
+            this.classList.add('nav-item-active');
+        });
+    });
+</script>
 </html>
