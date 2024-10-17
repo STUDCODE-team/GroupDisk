@@ -6,6 +6,7 @@
 	font-family: Montserrat Alternates, -apple-system, Roboto, Helvetica, sans-serif;
 	padding: 80px 20px;
 	width: min-content;
+	height: auto;
 }
 
 .header {
@@ -80,9 +81,10 @@
 	color: rgba(255, 64, 64, 1);
 	font-size: 24px;
 	font-weight: 500;
-	margin: 32px 0 0 26px;
+	margin: 16px 0 16px 26px;
 	text-decoration: none;
 	padding: 7px 26px;
+	white-space: nowrap;
 }
 
 .nav-item-active {
@@ -97,7 +99,7 @@
 
 
 .nav-item-logout {
-	margin: 500px 0 0 22px;
+	margin: 100% 0 0 22px;
 }
 
 
@@ -115,38 +117,40 @@
 
 
 .drop-section{
-min-height: 250px;
-border: 1px dashed #A8B3E3;
-background-image: linear-gradient(180deg, white, #F1F6FF);
-margin: 5px 35px 35px 35px;
-border-radius: 12px;
-position: relative;
+/* min-height: 250px; */
+	border: 1px dashed #A8B3E3;
+	background-image: linear-gradient(180deg, white, #F1F6FF);
+	margin: 35px 35px 35px 35px;
+	border-radius: 12px;
+	position: relative;
+	width: 100%;
+	height: auto;
 }
 .drop-section div.col:first-child{
-opacity: 1;
-visibility: visible;
-transition-duration: 0.2s;
-transform: scale(1);
-width: 200px;
-margin: auto;
+	opacity: 1;
+	visibility: visible;
+	transition-duration: 0.2s;
+	transform: scale(1);
+	width: 200px;
+	margin: auto;
 }
 .drop-section div.col:last-child{
-font-size: 40px;
-font-weight: 700;
-color: #c0cae1;
-position: absolute;
-top: 0px;
-bottom: 0px;
-left: 0px;
-right: 0px;
-margin: auto;
-width: 200px;
-height: 55px;
-pointer-events: none;
-opacity: 0;
-visibility: hidden;
-transform: scale(0.6);
-transition-duration: 0.2s;
+	font-size: 40px;
+	font-weight: 700;
+	color: #c0cae1;
+	position: absolute;
+	top: 0px;
+	bottom: 0px;
+	left: 0px;
+	right: 0px;
+	margin: auto;
+	width: 200px;
+	height: 55px;
+	pointer-events: none;
+	opacity: 0;
+	visibility: hidden;
+	transform: scale(0.6);
+	transition-duration: 0.2s;
 }
 /* we will use "drag-over-effect" class in js */
 .drag-over-effect div.col:first-child{
@@ -182,6 +186,7 @@ margin-top: 20px;
 cursor: pointer;
 box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
 }
+
 .drop-section input{
 display: none;
 }

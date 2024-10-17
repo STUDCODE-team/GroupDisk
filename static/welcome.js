@@ -10,12 +10,44 @@ navItems.forEach(item => {
 });
 
 
-    const dropArea = document.querySelector('.drop-section')
+const dropArea = document.querySelector('.drop-section')
 const listSection = document.querySelector('.list-section')
 const listContainer = document.querySelector('.list')
 const fileSelector = document.querySelector('.file-selector')
 const fileSelectorInput = document.querySelector('.file-selector-input')
 
+
+
+// Highlight drop area when item is dragged over
+dropArea.addEventListener('dragover', (event) => {
+    event.preventDefault();
+    dropArea.classList.add('drag-over');
+});
+
+// Remove highlight when dragging leaves the area
+dropArea.addEventListener('dragleave', () => {
+    dropArea.classList.remove('drag-over');
+});
+
+// Handle drop event
+dropArea.addEventListener('drop', (event) => {
+    event.preventDefault();
+    dropArea.classList.remove('drag-over');
+
+    const files = [...event.dataTransfer.files].forEach(file => {
+        if(typeValidation(file.type)){
+            uploadFile(file)
+        }
+    });
+});
+
+
+// Handle and display the uploaded files
+function handleFiles(files) {
+    for (const file of files) {
+        
+    }
+}
 // upload files with browse button
 fileSelector.onclick = () => fileSelectorInput.click()
 fileSelectorInput.onchange = () => {
@@ -65,7 +97,10 @@ dropArea.ondrop = (e) => {
 // check the file type
 function typeValidation(type){
     var splitType = type.split('/')[0]
-    if(type == 'application/pdf' || splitType == 'image' || splitType == 'video'){
+    if( type == 'application/pdf' ||
+        splitType == 'image' ||
+        splitType == 'video')
+    {
         return true
     }
 }
@@ -111,6 +146,7 @@ function uploadFile(file){
     http.send(data)
     li.querySelector('.cross').onclick = () => http.abort()
     http.onabort = () => li.remove()
+    console.log("XXX")
 }
 // find icon for file
 function iconSelector(type){
