@@ -1,5 +1,9 @@
 // Получаем все элементы меню
 const navItems = document.querySelectorAll('.nav-item');
+const dropArea = document.querySelector('.drop-section')
+
+let isDragging = false; // Флаг для отслеживания состояния перетаскивания
+
 
 // Добавляем событие клика на каждый пункт меню
 navItems.forEach(item => {
@@ -10,35 +14,50 @@ navItems.forEach(item => {
 });
 
 
-const dropArea = document.querySelector('.drop-section')
-const listSection = document.querySelector('.list-section')
-const listContainer = document.querySelector('.list')
-const fileSelector = document.querySelector('.file-selector')
-const fileSelectorInput = document.querySelector('.file-selector-input')
-
-
-
-// Highlight drop area when item is dragged over
-dropArea.addEventListener('dragover', (event) => {
-    event.preventDefault();
-    dropArea.classList.add('drag-over');
+// Показать область сброса при перетаскивании
+document.addEventListener('dragover', (event) => {
+    event.preventDefault(); // Предотвращаем действие по умолчанию
+    if (!isDragging) {
+        dropArea.classList.add('drag-over'); // Показываем область сброса
+        isDragging = true; // Устанавливаем флаг
+    }
 });
 
-// Remove highlight when dragging leaves the area
-dropArea.addEventListener('dragleave', () => {
-    dropArea.classList.remove('drag-over');
+// Показать область сброса, когда перетаскиваемый элемент входит в неё
+dropArea.addEventListener('dragenter', (event) => {
+    event.preventDefault(); // Предотвращаем действие по умолчанию
+    if (!isDragging) {
+        dropArea.classList.add('drag-over'); // Показываем область сброса
+        isDragging = true; // Устанавливаем флаг
+    }
 });
+
+// Скрыть область сброса, когда перетаскиваемый элемент покидает рабочую область
+dropArea.addEventListener('dragleave', (event) => {
+    // Проверяем, если указатель действительно покинул область
+    if (!dropArea.contains(event.relatedTarget)) {
+        dropArea.classList.remove('drag-over'); // Скрываем область сброса
+        isDragging = false; // Сбрасываем флаг
+    }
+});
+
 
 // Handle drop event
 dropArea.addEventListener('drop', (event) => {
     event.preventDefault();
     dropArea.classList.remove('drag-over');
+    isDragging = false; // Сбрасываем флаг
 
-    const files = [...event.dataTransfer.files].forEach(file => {
-        if(typeValidation(file.type)){
-            uploadFile(file)
-        }
-    });
+    const files = event.dataTransfer.files;
+    const formData = new FormData();
+    formData.append('file', files[0]);
+    console.log(...files)
+
+    fetch('/welcome', {
+        method: 'POST',
+        body: formData
+    }).then(response => response.text())
+      .then(data => console.log(data));
 });
 
 
@@ -48,108 +67,90 @@ function handleFiles(files) {
         
     }
 }
+
 // upload files with browse button
-fileSelector.onclick = () => fileSelectorInput.click()
-fileSelectorInput.onchange = () => {
-    [...fileSelectorInput.files].forEach((file) => {
-        if(typeValidation(file.type)){
-            uploadFile(file)
-        }
-    })
-}
+// fileSelector.onclick = () => fileSelectorInput.click()
+// fileSelectorInput.onchange = () => {
+//     [...fileSelectorInput.files].forEach((file) => {
+//         if(typeValidation(file.type)){
+//             uploadFile(file)
+//         }
+//     })
+// }
 
-// when file is over the drag area
-dropArea.ondragover = (e) => {
-    e.preventDefault();
-    [...e.dataTransfer.items].forEach((item) => {
-        if(typeValidation(item.type)){
-            dropArea.classList.add('drag-over-effect')
-        }
-    })
-}
-// when file leave the drag area
-dropArea.ondragleave = () => {
-    dropArea.classList.remove('drag-over-effect')
-}
-// when file drop on the drag area
-dropArea.ondrop = (e) => {
-    e.preventDefault();
-    dropArea.classList.remove('drag-over-effect')
-    if(e.dataTransfer.items){
-        [...e.dataTransfer.items].forEach((item) => {
-            if(item.kind === 'file'){
-                const file = item.getAsFile();
-                if(typeValidation(file.type)){
-                    uploadFile(file)
-                }
-            }
-        })
-    }else{
-        [...e.dataTransfer.files].forEach((file) => {
-            if(typeValidation(file.type)){
-                uploadFile(file)
-            }
-        })
-    }
-}
+// // when file is over the drag area
+// dropArea.ondragover = (e) => {
+//     e.preventDefault();
+//     [...e.dataTransfer.items].forEach((item) => {
+//         if(typeValidation(item.type)){
+//             dropArea.classList.add('drag-over-effect')
+//         }
+//     })
+// }
+// // when file leave the drag area
+// dropArea.ondragleave = () => {
+//     dropArea.classList.remove('drag-over-effect')
+// }
+// // when file drop on the drag area
+// dropArea.ondrop = (e) => {
+//     e.preventDefault();
+//     dropArea.classList.remove('drag-over-effect')
+//     if(e.dataTransfer.items){
+//         [...e.dataTransfer.items].forEach((item) => {
+//             if(item.kind === 'file'){
+//                 const file = item.getAsFile();
+//                 if(typeValidation(file.type)){
+//                     uploadFile(file)
+//                 }
+//             }
+//         })
+//     }else{
+//         [...e.dataTransfer.files].forEach((file) => {
+//             if(typeValidation(file.type)){
+//                 uploadFile(file)
+//             }
+//         })
+//     }
+// }
 
 
-// check the file type
-function typeValidation(type){
-    var splitType = type.split('/')[0]
-    if( type == 'application/pdf' ||
-        splitType == 'image' ||
-        splitType == 'video')
-    {
-        return true
-    }
-}
+// // check the file type
+// function typeValidation(type){
+//     var splitType = type.split('/')[0]
+//     if( type == 'application/pdf' ||
+//         splitType == 'image' ||
+//         splitType == 'video')
+//     {
+//         return true
+//     }
+// }
 
-// upload file function
-function uploadFile(file){
-    listSection.style.display = 'block'
-    var li = document.createElement('li')
-    li.classList.add('in-prog')
-    li.innerHTML = `
-        <div class="col">
-            <img src="icons/${iconSelector(file.type)}" alt="">
-        </div>
-        <div class="col">
-            <div class="file-name">
-                <div class="name">${file.name}</div>
-                <span>0%</span>
-            </div>
-            <div class="file-progress">
-                <span></span>
-            </div>
-            <div class="file-size">${(file.size/(1024*1024)).toFixed(2)} MB</div>
-        </div>
-        <div class="col">
-            <svg xmlns="http://www.w3.org/2000/svg" class="cross" height="20" width="20"><path d="m5.979 14.917-.854-.896 4-4.021-4-4.062.854-.896 4.042 4.062 4-4.062.854.896-4 4.062 4 4.021-.854.896-4-4.063Z"/></svg>
-            <svg xmlns="http://www.w3.org/2000/svg" class="tick" height="20" width="20"><path d="m8.229 14.438-3.896-3.917 1.438-1.438 2.458 2.459 6-6L15.667 7Z"/></svg>
-        </div>
-    `
-    listContainer.prepend(li)
-    var http = new XMLHttpRequest()
-    var data = new FormData()
-    data.append('file', file)
-    http.onload = () => {
-        li.classList.add('complete')
-        li.classList.remove('in-prog')
-    }
-    http.upload.onprogress = (e) => {
-        var percent_complete = (e.loaded / e.total)*100
-        li.querySelectorAll('span')[0].innerHTML = Math.round(percent_complete) + '%'
-        li.querySelectorAll('span')[1].style.width = percent_complete + '%'
-    }
-    http.open('POST', 'sender.php', true)
-    http.send(data)
-    li.querySelector('.cross').onclick = () => http.abort()
-    http.onabort = () => li.remove()
-    console.log("XXX")
-}
-// find icon for file
-function iconSelector(type){
-    var splitType = (type.split('/')[0] == 'application') ? type.split('/')[1] : type.split('/')[0];
-    return splitType + '.png'
-}
+// // upload file function
+// function uploadFile(file){
+//     listSection.style.display = 'block'
+//     var li = document.createElement('li')
+//     li.classList.add('in-prog')
+//     listContainer.prepend(li)
+//     var http = new XMLHttpRequest()
+//     var data = new FormData()
+//     data.append('file', file)
+//     http.onload = () => {
+//         li.classList.add('complete')
+//         li.classList.remove('in-prog')
+//     }
+//     http.upload.onprogress = (e) => {
+//         var percent_complete = (e.loaded / e.total)*100
+//         li.querySelectorAll('span')[0].innerHTML = Math.round(percent_complete) + '%'
+//         li.querySelectorAll('span')[1].style.width = percent_complete + '%'
+//     }
+//     http.open('POST', 'sender.php', true)
+//     http.send(data)
+//     li.querySelector('.cross').onclick = () => http.abort()
+//     http.onabort = () => li.remove()
+//     console.log("XXX")
+// }
+// // find icon for file
+// function iconSelector(type){
+//     var splitType = (type.split('/')[0] == 'application') ? type.split('/')[1] : type.split('/')[0];
+//     return splitType + '.png'
+// }

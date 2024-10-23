@@ -29,9 +29,8 @@ firebase = pyrebase.initialize_app(firebase_config)
 
 auth = firebase.auth()
 db = firebase.database()
+storage = firebase.storage()
 # Route for the login page
-
-
 
 @app.route("/")
 def login():
@@ -42,16 +41,46 @@ def login():
 def signup():
     return renderIfNotLoggedIn('signup.html', 'welcome')
 
-# Route for the welcome page
-@app.route("/welcome")
+UPLOAD_FOLDER = 'uploads/'  # Путь к папке для загрузки файлов
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+ALLOWED_EXTENSIONS = {'txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'}
+
+def allowed_file(filename):
+    return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
+
+@app.route("/welcome", methods=['GET', 'POST'])
 def welcome():
-    # Check if user is logged in
-    if session.get("is_logged_in", False):
-        return render_template("welcome.html", email=session["email"], name=session["name"])
-    else:
-        # If user is not logged in, redirect to login page
-        return redirect(url_for('login'))
+    # Если это GET-запрос, просто отображаем страницу
+    if request.method == 'GET':
+        # Проверяем, что пользователь залогинен
+        if session.get("is_logged_in", False):
+            return render_template("welcome.html", email=session["email"], name=session["name"])
+        else:
+            # Если не залогинен, перенаправляем на страницу входа
+            return redirect(url_for('login'))
     
+    # Если это POST-запрос (загрузка файла)
+    if request.method == 'POST':
+        if 'file' not in request.files:
+            return 'No file part'
+        file = request.files['file']
+        if file.filename == '':
+            return 'No selected file'
+        if file and allowed_file(file.filename):
+             # Загрузка файла в Firebase Storage
+            # bucket = storage.bucket()
+            # blob = bucket.blob(file.filename)
+            # blob.upload_from_file(file)
+            filename = file.filename
+            # storage.child("uploaded/file.txt").put(filename)
+            storage.child(filename).put(file)
+            # file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+            return f'File {filename} uploaded successfully'
+        return 'File type not allowed'
+
+
+
 def check_password_strength(password):
     return re.match(r'^(?=.*\d).{4,}$', password) is not None
 
