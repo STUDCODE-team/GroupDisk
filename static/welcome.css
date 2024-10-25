@@ -1,20 +1,35 @@
+body {
+    background: linear-gradient(to bottom right, #F3EBE3, #E4EBFF);
+    margin: 0;
+    padding: 0;
+    height: 100vh; /* Убедитесь, что фон занимает всю высоту окна */
+	display: flex;
+	flex-direction: column;
+    justify-content: center; /* Чтобы элементы были по центру вертикали */
+    align-items: center;
+}
+
+
 .sidebar {
 	display: flex;
 	flex-direction: column;
 	overflow: hidden;
 	align-items: center;
 	font-family: Montserrat Alternates, -apple-system, Roboto, Helvetica, sans-serif;
-	padding: 80px 20px;
-	width: min-content;
+	margin: 30px 0px 30px 0px;
+	width: 300px;
+	height: auto;
 }
 
 .header {
 	display: flex;
 	width: 100%;
-	gap: 20px;
-	height: 1%;
+	height: min-content;
 	flex-wrap: wrap;
-	justify-content: space-between;
+	flex-direction: row;
+	align-items: center;
+	justify-content: space-between; /* Чтобы распределить элементы по сторонам */
+
 }
 
 
@@ -34,55 +49,69 @@
 }
 
 .brand-name {
-	flex-basis: auto;
-	margin: auto 0;
-	margin-left: 21px;
-}
-
-.search-bar {
-	border-radius: 32px;
-	background-color: rgba(255, 255, 255, 1);
-	display: flex;
-	gap: 40px 100px;
-	font-size: 24px;
-	color: rgba(159, 159, 159, 1);
-	font-weight: 400;
-	flex-wrap: wrap;
-	margin: auto 0;
-	padding: 20px 30px;
+    flex-basis: auto;
+    margin: auto 0;
+    margin-left: 21px;
+    font-family: 'Montserrat Alternates', -apple-system, Roboto, Helvetica, sans-serif;
+    font-weight: 500; /* SemiBold */
+    font-size: 40px; /* Изображение показывает 40px */
 }
 
 .main-container {
 	display: flex;
     flex-direction: row;
-    gap: 40px;
     width: 100%;
-    padding: 80px 20px;
+	height: 100%;
     margin: auto 0;
+	z-index: 1;
+}
+
+
+.search-container {
+    position: absolute;
+	left: 50%; /* Сдвигаем в центр */
+    transform: translateX(-50%); /* Центрируем элемент по оси X */
+    width: 30%; 
+}
+
+.search-input {
+    width: 100%;
+    padding: 10px 40px;
+    border-radius: 30px; /* Округлённые края */
+    border: none;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Легкая тень для объёма */
+    font-size: 18px;
+    background: linear-gradient(145deg, #f3ebe3, #e4ebff); /* Градиентный фон */
+    outline: none;
+}
+
+.search-input::placeholder {
+    color: #aaa;
+    font-size: 16px;
+    font-family: 'Montserrat Alternates', sans-serif; /* Стиль для текста */
 }
 
 .search-icon {
-	background-color: rgba(217, 217, 217, 0);
-	border-radius: 50%;
-	align-self: start;
-	display: flex;
-	width: 17px;
-	height: 18px;
-	border: 2px solid rgba(159, 159, 159, 1);
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 20px;
+    color: #aaa;
+    pointer-events: none;
 }
 
-.search-placeholder {
-	flex-grow: 1;
-}
+
 
 
 .nav-item {
 	color: rgba(255, 64, 64, 1);
 	font-size: 24px;
 	font-weight: 500;
-	margin: 32px 0 0 26px;
+	margin: 16px 0 16px 26px;
 	text-decoration: none;
 	padding: 7px 26px;
+	white-space: nowrap;
 }
 
 .nav-item-active {
@@ -95,11 +124,9 @@
 	padding: 7px 26px;
 }
 
-
 .nav-item-logout {
-	margin: 500px 0 0 22px;
+	margin: auto 0 40px 22px;
 }
-
 
 .visually-hidden {
 	position: absolute;
@@ -113,165 +140,39 @@
 	border: 0;
 }
 
-
-.drop-section{
-min-height: 250px;
-border: 1px dashed #A8B3E3;
-background-image: linear-gradient(180deg, white, #F1F6FF);
-margin: 5px 35px 35px 35px;
-border-radius: 12px;
-position: relative;
-}
-.drop-section div.col:first-child{
-opacity: 1;
-visibility: visible;
-transition-duration: 0.2s;
-transform: scale(1);
-width: 200px;
-margin: auto;
-}
-.drop-section div.col:last-child{
-font-size: 40px;
-font-weight: 700;
-color: #c0cae1;
-position: absolute;
-top: 0px;
-bottom: 0px;
-left: 0px;
-right: 0px;
-margin: auto;
-width: 200px;
-height: 55px;
-pointer-events: none;
-opacity: 0;
-visibility: hidden;
-transform: scale(0.6);
-transition-duration: 0.2s;
-}
-/* we will use "drag-over-effect" class in js */
-.drag-over-effect div.col:first-child{
-opacity: 0;
-visibility: hidden;
-pointer-events: none;
-transform: scale(1.1);
-}
-.drag-over-effect div.col:last-child{
-opacity: 1;
-visibility: visible;
-transform: scale(1);
-}
-.drop-section .cloud-icon{
-margin-top: 25px;
-margin-bottom: 20px;
-}
-.drop-section span,
-.drop-section button{
-display: block;
-margin: auto;
-color: #707EA0;
-margin-bottom: 10px;
-}
-.drop-section button{
-color: white;
-background-color: #5874C6;
-border: none;
-outline: none;
-padding: 7px 20px;
-border-radius: 8px;
-margin-top: 20px;
-cursor: pointer;
-box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
-}
-.drop-section input{
-display: none;
+.workarea{
+	border: 3px solid #D7D1CE;
+	margin: 30px 60px 30px 30px;
+	border-radius: 30px;
+	position: relative;
+	width: 100%;
+	height: auto;	
+	/* background-color: #f9eeee; */
 }
 
-.list-section{
-display: none;
-text-align: left;
-margin: 0px 35px;
-padding-bottom: 20px;
+.drop-section {
+    position: absolute; /* Установите абсолютное позиционирование */
+    top: 0; /* Находимся в верхней части */
+    left: 0; /* Прижимаемся к левому краю */
+    width: 100%; /* Занимаем всю ширину */
+    height: 100%; /* Занимаем всю высоту рабочей области */
+    background-color: rgba(255, 255, 255, 0.8); /* Полупрозрачный фон */
+    display: flex; /* Используем flex для центрирования содержимого */
+    align-items: center; /* Центрируем по вертикали */
+    justify-content: center; /* Центрируем по горизонтали */
+	opacity: 0;
+	pointer-events: none; /* Отключаем взаимодействие с мышью */
+    transition: opacity 0.3s ease; /* Плавный переход для видимости z*/
+	z-index: 2;
 }
-.list-section .list-title{
-font-size: 0.95rem;
-color: #707EA0;
+
+.drop-here {
+    padding: 20px;
+    border: 2px dashed #ccc; /* Дизайн рамки для области сброса */
+    text-align: center; /* Центрируем текст */
 }
-.list-section li{
-display: flex;
-margin: 15px 0px;
-padding-top: 4px;
-padding-bottom: 2px;
-border-radius: 8px;
-transition-duration: 0.2s;
-}
-.list-section li:hover{
-box-shadow: #E3EAF9 0px 0px 4px 0px, #E3EAF9 0px 12px 16px 0px;
-}
-.list-section li .col{
-flex: .1;
-}
-.list-section li .col:nth-child(1){
-flex: .15;
-text-align: center;
-}
-.list-section li .col:nth-child(2){
-flex: .75;
-text-align: left;
-font-size: 0.9rem;
-color: #3e4046;
-padding: 8px 10px;
-}
-.list-section li .col:nth-child(2) div.name{
-overflow: hidden;
-white-space: nowrap;
-text-overflow: ellipsis;
-max-width: 250px;
-display: inline-block;
-}
-.list-section li .col .file-name span{
-color: #707EA0;
-float: right;
-}
-.list-section li .file-progress{
-width: 100%;
-height: 5px;
-margin-top: 8px;
-border-radius: 8px;
-background-color: #dee6fd;
-}
-.list-section li .file-progress span{
-display: block;
-width: 0%;
-height: 100%;
-border-radius: 8px;
-background-image: linear-gradient(120deg, #6b99fd, #9385ff);
-transition-duration: 0.4s;
-}
-.list-section li .col .file-size{
-font-size: 0.75rem;
-margin-top: 3px;
-color: #707EA0;
-}
-.list-section li .col svg.cross,
-.list-section li .col svg.tick{
-fill: #8694d2;
-background-color: #dee6fd;
-position: relative;
-left: 50%;
-top: 50%;
-transform: translate(-50%, -50%);
-border-radius: 50%;
-}
-.list-section li .col svg.tick{
-fill: #50a156;
-background-color: transparent;
-}
-.list-section li.complete span,
-.list-section li.complete .file-progress,
-.list-section li.complete svg.cross{
-display: none;
-}
-.list-section li.in-prog .file-size,
-.list-section li.in-prog svg.tick{
-display: none;
+
+.drop-section.drag-over {
+    opacity: 1; /* Делаем видимым при добавлении класса */
+    pointer-events: auto; /* Включаем взаимодействие с мышью */
 }
