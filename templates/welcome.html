@@ -3,20 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GroupDisk Sidebar Navigation</title>
+    <title>GroupDisk</title>
+    <link rel="apple-touch-icon" href="../static/logo.svg">
+    <link rel="apple-touch-icon-precomposed" href="../static/logo.svg">
+    <link rel="icon" type="image/svg+xml" href="../static/logo.svg">
     <link rel="stylesheet" type="text/css" href="../static/welcome.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat+Alternates:wght@600&display=swap" rel="stylesheet">
+
 </head>
 <body>
     <header class="header">
         <div class="logo-container">
-            <img loading="lazy" src="https://cdn.builder.io/api/v1/image/assets/TEMP/b6179c0a918df40107ca5f27dd9a3327c93b81806396fe59c1254bf221461151?placeholderIfAbsent=true&apiKey=4d779cf73276406d9fd3a7da7d5ce040" class="logo" alt="GroupDisk logo" />
+            <img loading="lazy" src="../static/logo.svg" class="logo" alt="GroupDisk logo" />
             <h1 class="brand-name">GroupDisk</h1>
         </div>
-        <form class="search-bar" role="search">
-            <label for="search-input" class="visually-hidden">Search files</label>
-            <span class="search-icon" aria-hidden="true"></span>
-            <input type="search" id="search-input" class="search-placeholder" placeholder="Search files" />
-        </form>
+        <div class="search-container">
+            <input type="text" class="search-input" placeholder="Search files">
+            <i class="search-icon">&#128269;</i>
+        </div>
+        
     </header>
 
     <div class="main-container">
