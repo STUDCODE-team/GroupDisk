@@ -7,7 +7,7 @@
     <link rel="apple-touch-icon" href="../static/logo.svg">
     <link rel="apple-touch-icon-precomposed" href="../static/logo.svg">
     <link rel="icon" type="image/svg+xml" href="../static/logo.svg">
-    <link rel="stylesheet" type="text/css" href="../static/welcome.css">
+    <link rel="stylesheet" type="text/css" href="../static/home.css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat+Alternates:wght@600&display=swap" rel="stylesheet">
 </head>
 <body>
@@ -30,11 +30,11 @@
             <a href="#shared" class="nav-item">shared</a>
             <a href="#deadlines" class="nav-item">deadlines</a>
             <a href="#deleted" class="nav-item">deleted</a>
-            <a href="#logout" class="nav-item nav-item-logout">logout</a>
+            <a href="{{ url_for('auth_routes.logout') }}" class="nav-item nav-item-logout">logout</a>
         </nav>
         <div class="drop-section">
                 <div class="col">
-                    <div class="drop-here">Drop Here</div>
+                    <div class="drop-here">Drop your files here</div>
                 </div>
             </div>
         <div class="workarea">
@@ -44,5 +44,5 @@
     </body>
 
 </body>
-    <script type="text/javascript" src="../static/welcome.js"></script>
+    <script type="text/javascript" src="../static/home.js"></script>
 </html>

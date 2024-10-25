@@ -38,7 +38,7 @@
     </div>
 
     <!-- Login Form -->
-    <form action="{{ url_for('register') }}" method="POST" onsubmit="return validateForm()">
+    <form action="{{ url_for('auth_routes.register') }}" method="POST" onsubmit="return validateForm()">
       <input type="text" id="name" class="fadeIn second" name="name" placeholder="name">
       <input type="email" id="login" class="fadeIn second" name="email" placeholder="email">
       <input type="password" id="password" class="fadeIn third" name="pass" placeholder="password">

@@ -9,7 +9,8 @@ let isDragging = false; // Флаг для отслеживания состоя
 navItems.forEach(item => {
     item.addEventListener('click', function() {
         document.querySelector('.nav-item-active').classList.remove('nav-item-active');
-        this.classList.add('nav-item-active');
+        if (!this.classList.contains('nav-item-logout'))
+            this.classList.add('nav-item-active');
     });
 });
 
@@ -43,30 +44,28 @@ dropArea.addEventListener('dragleave', (event) => {
 
 
 // Handle drop event
-dropArea.addEventListener('drop', (event) => {
+dropArea.addEventListener('drop', async (event) => {
     event.preventDefault();
     dropArea.classList.remove('drag-over');
     isDragging = false; // Сбрасываем флаг
 
     const files = event.dataTransfer.files;
     const formData = new FormData();
-    formData.append('file', files[0]);
-    console.log(...files)
 
-    fetch('/welcome', {
+    for (let i = 0; i < files.length; i++) {
+        formData.append('files', files[i]); // используем 'files' как ключ
+    }
+
+    // сделать отдельной функцией
+    fetch('/api/upload_userfiles', {
         method: 'POST',
         body: formData
     }).then(response => response.text())
       .then(data => console.log(data));
+
 });
 
 
-// Handle and display the uploaded files
-function handleFiles(files) {
-    for (const file of files) {
-        
-    }
-}
 
 // upload files with browse button
 // fileSelector.onclick = () => fileSelectorInput.click()

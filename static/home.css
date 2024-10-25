@@ -76,19 +76,19 @@ body {
 
 .search-input {
     width: 100%;
-    padding: 10px 40px;
+    padding: 10px 50px;
     border-radius: 30px; /* Округлённые края */
     border: none;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Легкая тень для объёма */
     font-size: 18px;
     background: linear-gradient(145deg, #f3ebe3, #e4ebff); /* Градиентный фон */
     outline: none;
+	font-family: 'Montserrat Alternates', sans-serif; /* Стиль для текста */
 }
 
 .search-input::placeholder {
     color: #aaa;
     font-size: 16px;
-    font-family: 'Montserrat Alternates', sans-serif; /* Стиль для текста */
 }
 
 .search-icon {
@@ -128,17 +128,6 @@ body {
 	margin: auto 0 40px 22px;
 }
 
-.visually-hidden {
-	position: absolute;
-	width: 1px;
-	height: 1px;
-	padding: 0;
-	margin: -1px;
-	overflow: hidden;
-	clip: rect(0, 0, 0, 0);
-	white-space: nowrap;
-	border: 0;
-}
 
 .workarea{
 	border: 3px solid #D7D1CE;
@@ -157,18 +146,24 @@ body {
     width: 100%; /* Занимаем всю ширину */
     height: 100%; /* Занимаем всю высоту рабочей области */
     background-color: rgba(255, 255, 255, 0.8); /* Полупрозрачный фон */
+    border: 6px dashed rgb(139, 139, 139);; /* Дизайн рамки для области сброса */
     display: flex; /* Используем flex для центрирования содержимого */
     align-items: center; /* Центрируем по вертикали */
     justify-content: center; /* Центрируем по горизонтали */
-	opacity: 0;
-	pointer-events: none; /* Отключаем взаимодействие с мышью */
-    transition: opacity 0.3s ease; /* Плавный переход для видимости z*/
-	z-index: 2;
+    opacity: 0;
+    pointer-events: none; /* Отключаем взаимодействие с мышью */
+    transition: opacity 0.3s ease; /* Плавный переход для видимости */
+    z-index: 2;
+
+    padding: 20px; /* Устанавливаем отступы вокруг содержимого */
+    box-sizing: border-box; /* Учитываем отступы и границы в размерах элемента */
 }
 
+
 .drop-here {
-    padding: 20px;
-    border: 2px dashed #ccc; /* Дизайн рамки для области сброса */
+	font-size: 40px;
+	font-weight: 700;
+	font-family: Montserrat Alternates, -apple-system, Roboto, Helvetica, sans-serif;
     text-align: center; /* Центрируем текст */
 }
 
