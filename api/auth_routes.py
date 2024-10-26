@@ -40,13 +40,13 @@ def result():
                 db.child("users").child(session["uid"]).update({"last_logged_in": datetime.now().strftime("%m/%d/%Y, %H:%M:%S")})
             else:
                 session["name"] = "User"
-            # Redirect to welcome page
-            return redirect(url_for('main_routes.welcome'))
+            # Redirect to home page
+            return redirect(url_for('main_routes.home'))
         except Exception as e:
             print("Error occurred: ", e)
             return redirect(url_for('auth_routes.login'))
     else:
-        return redirectIfNotLoggedIn('auth_routes.login', 'main_routes.welcome')
+        return redirectIfNotLoggedIn('auth_routes.login', 'main_routes.home')
 
 
 # Route for user registration
@@ -72,12 +72,12 @@ def register():
             # Save user data
             data = {"name": name, "email": email, "last_logged_in": datetime.now().strftime("%m/%d/%Y, %H:%M:%S")}
             db.child("users").child(session["uid"]).set(data)
-            return redirect(url_for('main_routes.welcome'))
+            return redirect(url_for('main_routes.home'))
         except Exception as e:
             print("Error occurred during registration: ", e)
             return redirect(url_for('auth_routes.signup'))
     else:
-        return redirectIfNotLoggedIn('auth_routes.signup', 'main_routes.welcome')
+        return redirectIfNotLoggedIn('auth_routes.signup', 'main_routes.home')
 
 
 # Route for password reset

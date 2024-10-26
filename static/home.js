@@ -2,7 +2,101 @@
 const navItems = document.querySelectorAll('.nav-item');
 const dropArea = document.querySelector('.drop-section')
 
+const fileSelector = document.querySelector('.upload-button')
+const fileSelectorInput = document.getElementById('fileSelectorInput');
+
+const documentsArea = document.querySelector('.documents');
+
+
 let isDragging = false; // Флаг для отслеживания состояния перетаскивания
+
+document.addEventListener('DOMContentLoaded', () => {
+    init()
+})
+
+function init() {
+   
+
+    files = [
+        {
+            name: 'Document1',
+            ext: "txt"
+        },
+        {
+            name: 'Отчет',
+            ext: "pdf"
+        },
+        {
+            name: 'Папка',
+            ext: "..."
+        },
+        {
+            name: 'Document1 уев',
+            ext: "mov"
+        },
+        {
+            name: 'avatar me 1024',
+            ext: "png"
+        },
+        {
+            name: 'Отчет',
+            ext: "pdf"
+        },
+        {
+            name: 'Папка',
+            ext: "..."
+        },
+        {
+            name: 'Document1 уев',
+            ext: "mov"
+        },
+        {
+            name: 'avatar me 1024',
+            ext: "png"
+        },
+        {
+            name: 'Отчет',
+            ext: "pdf"
+        },
+        {
+            name: 'Папка',
+            ext: "..."
+        },
+        {
+            name: 'Document1 уев',
+            ext: "mov"
+        },
+        {
+            name: 'avatar me 1024',
+            ext: "png"
+        }
+    ]
+
+    for (let file of files) {
+        if (file.ext !== "...") {
+            documentsArea.insertAdjacentHTML('beforeend', `
+                <div class="file-object">
+                    <div class="file-icon">
+                        <div class="file-corner"></div>
+                        <div class="file-extension">${file.ext}</div>
+                    </div>
+                    <div class="file-name">${file.name}</div> <!-- Переместили название файла сюда -->
+                </div>
+                
+            `);
+        } else {
+            documentsArea.insertAdjacentHTML('beforeend', `
+                <div class="file-object">
+                <img src="../static/folder.png" alt="Folder Icon" class="folder-icon"> 
+                <div class="file-name">${file.name}</div>
+                </div>
+                
+            `);
+        }
+
+    }
+}
+
 
 
 // Добавляем событие клика на каждый пункт меню
@@ -47,9 +141,19 @@ dropArea.addEventListener('dragleave', (event) => {
 dropArea.addEventListener('drop', async (event) => {
     event.preventDefault();
     dropArea.classList.remove('drag-over');
-    isDragging = false; // Сбрасываем флаг
+    isDragging = false;
 
-    const files = event.dataTransfer.files;
+    uploadFiles(event.dataTransfer.files);
+});
+
+
+fileSelector.onclick = () => fileSelectorInput.click()
+fileSelectorInput.onchange = () => {
+    uploadFiles(fileSelectorInput.files)
+}
+
+
+function uploadFiles(files) {
     const formData = new FormData();
 
     for (let i = 0; i < files.length; i++) {
@@ -62,94 +166,4 @@ dropArea.addEventListener('drop', async (event) => {
         body: formData
     }).then(response => response.text())
       .then(data => console.log(data));
-
-});
-
-
-
-// upload files with browse button
-// fileSelector.onclick = () => fileSelectorInput.click()
-// fileSelectorInput.onchange = () => {
-//     [...fileSelectorInput.files].forEach((file) => {
-//         if(typeValidation(file.type)){
-//             uploadFile(file)
-//         }
-//     })
-// }
-
-// // when file is over the drag area
-// dropArea.ondragover = (e) => {
-//     e.preventDefault();
-//     [...e.dataTransfer.items].forEach((item) => {
-//         if(typeValidation(item.type)){
-//             dropArea.classList.add('drag-over-effect')
-//         }
-//     })
-// }
-// // when file leave the drag area
-// dropArea.ondragleave = () => {
-//     dropArea.classList.remove('drag-over-effect')
-// }
-// // when file drop on the drag area
-// dropArea.ondrop = (e) => {
-//     e.preventDefault();
-//     dropArea.classList.remove('drag-over-effect')
-//     if(e.dataTransfer.items){
-//         [...e.dataTransfer.items].forEach((item) => {
-//             if(item.kind === 'file'){
-//                 const file = item.getAsFile();
-//                 if(typeValidation(file.type)){
-//                     uploadFile(file)
-//                 }
-//             }
-//         })
-//     }else{
-//         [...e.dataTransfer.files].forEach((file) => {
-//             if(typeValidation(file.type)){
-//                 uploadFile(file)
-//             }
-//         })
-//     }
-// }
-
-
-// // check the file type
-// function typeValidation(type){
-//     var splitType = type.split('/')[0]
-//     if( type == 'application/pdf' ||
-//         splitType == 'image' ||
-//         splitType == 'video')
-//     {
-//         return true
-//     }
-// }
-
-// // upload file function
-// function uploadFile(file){
-//     listSection.style.display = 'block'
-//     var li = document.createElement('li')
-//     li.classList.add('in-prog')
-//     listContainer.prepend(li)
-//     var http = new XMLHttpRequest()
-//     var data = new FormData()
-//     data.append('file', file)
-//     http.onload = () => {
-//         li.classList.add('complete')
-//         li.classList.remove('in-prog')
-//     }
-//     http.upload.onprogress = (e) => {
-//         var percent_complete = (e.loaded / e.total)*100
-//         li.querySelectorAll('span')[0].innerHTML = Math.round(percent_complete) + '%'
-//         li.querySelectorAll('span')[1].style.width = percent_complete + '%'
-//     }
-//     http.open('POST', 'sender.php', true)
-//     http.send(data)
-//     li.querySelector('.cross').onclick = () => http.abort()
-//     http.onabort = () => li.remove()
-//     console.log("XXX")
-// }
-// // find icon for file
-// function iconSelector(type){
-//     var splitType = (type.split('/')[0] == 'application') ? type.split('/')[1] : type.split('/')[0];
-//     return splitType + '.png'
-// }
+}
