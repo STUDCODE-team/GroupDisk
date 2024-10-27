@@ -11,74 +11,28 @@ const documentsArea = document.querySelector('.documents');
 let isDragging = false; // Флаг для отслеживания состояния перетаскивания
 
 document.addEventListener('DOMContentLoaded', () => {
-    init()
+    getFiles();
 })
 
-function init() {
-   
+function getFiles(parentId = null) {
+    fetch('/api/get_userfiles', {
+        method: 'POST',
+        body: {}
+    }).then(response => response.text())
+        .then(files => init(JSON.parse(files)));
+}
 
-    files = [
-        {
-            name: 'Document1',
-            ext: "txt"
-        },
-        {
-            name: 'Отчет',
-            ext: "pdf"
-        },
-        {
-            name: 'Папка',
-            ext: "..."
-        },
-        {
-            name: 'Document1 уев',
-            ext: "mov"
-        },
-        {
-            name: 'avatar me 1024',
-            ext: "png"
-        },
-        {
-            name: 'Отчет',
-            ext: "pdf"
-        },
-        {
-            name: 'Папка',
-            ext: "..."
-        },
-        {
-            name: 'Document1 уев',
-            ext: "mov"
-        },
-        {
-            name: 'avatar me 1024',
-            ext: "png"
-        },
-        {
-            name: 'Отчет',
-            ext: "pdf"
-        },
-        {
-            name: 'Папка',
-            ext: "..."
-        },
-        {
-            name: 'Document1 уев',
-            ext: "mov"
-        },
-        {
-            name: 'avatar me 1024',
-            ext: "png"
-        }
-    ]
+function init(files) {
+    documentsArea.innerHTML = '';
 
     for (let file of files) {
+        console.warn(file)
         if (file.ext !== "...") {
             documentsArea.insertAdjacentHTML('beforeend', `
                 <div class="file-object">
                     <div class="file-icon">
                         <div class="file-corner"></div>
-                        <div class="file-extension">${file.ext}</div>
+                        <div class="file-extension">${file.extension}</div>
                     </div>
                     <div class="file-name">${file.name}</div> <!-- Переместили название файла сюда -->
                 </div>
@@ -165,5 +119,5 @@ function uploadFiles(files) {
         method: 'POST',
         body: formData
     }).then(response => response.text())
-      .then(data => console.log(data));
+      .then(data => getFiles());
 }

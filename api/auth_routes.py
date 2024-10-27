@@ -9,13 +9,13 @@ auth_routes = Blueprint('auth_routes', __name__)
 
 @auth_routes.route("/")
 def login():
-    return renderIfNotLoggedIn('login.html', 'main_routes.home')
+    return render_if_not_logged_in('login.html', 'main_routes.home')
 
 
 # Route for the signup page
 @auth_routes.route("/signup")
 def signup():
-    return renderIfNotLoggedIn('signup.html', 'main_routes.home')
+    return render_if_not_logged_in('signup.html', 'main_routes.home')
 
 
 # Route for login
@@ -46,7 +46,7 @@ def result():
             print("Error occurred: ", e)
             return redirect(url_for('auth_routes.login'))
     else:
-        return redirectIfNotLoggedIn('auth_routes.login', 'main_routes.home')
+        return redirect_if_not_logged_in('auth_routes.login', 'main_routes.home')
 
 
 # Route for user registration
@@ -77,7 +77,7 @@ def register():
             print("Error occurred during registration: ", e)
             return redirect(url_for('auth_routes.signup'))
     else:
-        return redirectIfNotLoggedIn('auth_routes.signup', 'main_routes.home')
+        return redirect_if_not_logged_in('auth_routes.signup', 'main_routes.home')
 
 
 # Route for password reset

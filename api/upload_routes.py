@@ -1,14 +1,9 @@
 from flask import jsonify, request, Blueprint
 from firebase_init import storage
+from utils import upload_files, get_files
 
 
 upload_routes = Blueprint('upload_routes', __name__)
-
-
-ALLOWED_EXTENSIONS = {'txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'}
-
-def allowed_file(filename):
-    return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 
 @upload_routes.route("/api/upload_userfiles", methods=["POST"])
@@ -18,16 +13,15 @@ def upload_userfiles():
     
     files = request.files.getlist('files')  # Получаем список файлов
     if not files:
-        return 'No selected files'  # Исправлено сообщение
+        return 'No selected files'
     
-    for file in files:
-        if file and allowed_file(file.filename):
-            filename = file.filename
-            storage.child(filename).put(file)  # Загрузка каждого файла
-        else:
-            return f'File type not allowed: {file.filename}'  # Сообщение об ошибке для неподходящих файлов
+    return upload_files(parent_file_id=None, files=files)
 
-    return f'Files uploaded successfully'
+
+@upload_routes.route("/api/get_userfiles", methods=["POST"])
+def get_userfiles():
+    return get_files(parent_file_id=None)
+
 
 
         
