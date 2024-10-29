@@ -87,7 +87,7 @@ def upload_file(parent_file_id, file):
     db.child(f'files/{file_id}').set(file_data)
     
     # Update user's file list
-    if parent_file_id is None:
+    if parent_file_id == "null":
         user_files = db.child(f'users/{user_id}/my_files').get().val() or []
         user_files.append(file_id)
         db.child(f'users/{user_id}/my_files').set(user_files)

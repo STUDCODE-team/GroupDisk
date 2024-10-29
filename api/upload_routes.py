@@ -8,24 +8,29 @@ upload_routes = Blueprint('upload_routes', __name__)
 
 @upload_routes.route("/api/upload_userfiles", methods=["POST"])
 def upload_userfiles():
-
     error_message = ""
 
+    # Проверяем, есть ли ключ 'files' в request.files
     if 'files' not in request.files:
         error_message = 'No file part'
+        return {"is_success": False, "error_message": error_message}
+
+    # Получаем список файлов
+    files = request.files.getlist('files')
     
-    files = request.files.getlist('files')  # Получаем список файлов
     if not files:
         error_message = 'No selected files'
-    
+        return {"is_success": False, "error_message": error_message}
+
     response = {
         "is_success": True,
         "error_message": ""
     }
 
-    if error_message or not upload_files(files, request.form.get('parentId')):
+    # Ваш код для обработки файлов
+    if not upload_files(request.form.get('parentId'), files):
         response['is_success'] = False
-        response['error_message'] = error_message
+        response['error_message'] = 'File upload failed'
     
     return response
 

@@ -31,13 +31,13 @@ function getFiles(parentId = null) {
         if (data.is_success)
             init(data.files);
         else
-            console.warn("responce is not success: ", JSON.stringify(data))
+            console.warn("response is not success: ", JSON.stringify(data))
     }, showWorkAreaSpinner, hideWorkAreaSpinner);
 }
 
 
 function uploadFiles(files, parentId = null) {
-    const formData = new FormData();
+    let formData = new FormData();
 
     formData.append('parentId', parentId)
     for (let i = 0; i < files.length; i++) {
@@ -48,7 +48,7 @@ function uploadFiles(files, parentId = null) {
         if (data.is_success)
             getFiles()
         else
-            console.warn("responce is not success: ", JSON.stringify(data))
+            console.warn("response is not success: ", JSON.stringify(data))
     });
 }
 
@@ -58,7 +58,7 @@ function init(files) {
     documentsArea.innerHTML = '';
 
     for (let file of files) {
-        console.info(file)
+        // console.info(file)
         if (file.ext !== "...") {
             documentsArea.insertAdjacentHTML('beforeend', `
                 <div class="file-object">
@@ -142,29 +142,24 @@ fileSelectorInput.onchange = () => {
 
 
 function httpRequest(api, formData = null, callback = null, startCallback = null, endCallback = null) {
-
-    if (startCallback) startCallback()
+    if (startCallback) startCallback();
 
     fetch(api, {
         method: 'POST',
-        headers: { 
-            'Content-Type': 'application/json' 
-        },
-        body: formData
+        body: formData 
     })
     .then(response => {
         if (!response.ok) { 
             throw new Error('Network response was not ok'); 
         }
-        return response.text();
+        return response.json();
     })
     .then(data => {
-        data = JSON.parse(data);
-        if (callback) callback(data)
-        if (endCallback) endCallback()
+        if (callback) callback(data);
+        if (endCallback) endCallback();
     })
     .catch(error => {
         console.error('Error fetching files:', error);
-        if (endCallback) endCallback()
+        if (endCallback) endCallback();
     });
 }
