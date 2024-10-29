@@ -29,7 +29,7 @@ def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 
-def get_files(parent_file_id):
+def get_files(parent_file_id): #TODO parent_file_id
     user_id = session["uid"]
 
     # Получение списка fileid из users/user_id/my_files
@@ -54,12 +54,14 @@ def get_files(parent_file_id):
 
 
 def upload_files(parent_file_id, files):
+    is_all_success = True
+
     for file in files:
         if file and allowed_file(file.filename):
             upload_file(parent_file_id, file)
         else:
-            return f'File type not allowed: {file.filename}'
-    return 'Files uploaded successfully'
+            is_all_success = False
+    return is_all_success
 
 
 def upload_file(parent_file_id, file):

@@ -69,9 +69,10 @@ body {
     padding: 10px 50px;
     border-radius: 30px; /* Округлённые края */
     border: none;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Легкая тень для объёма */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     font-size: 18px;
-    background: linear-gradient(145deg, #f3ebe3, #e4ebff); /* Градиентный фон */
+    background: #ecedee;
+    /* linear-gradient(145deg, #f3ebe3, #e4ebff); Градиентный фон */ 
     outline: none;
 	font-family: 'Montserrat Alternates', sans-serif; /* Стиль для текста */
 }
@@ -144,7 +145,7 @@ body {
     opacity: 0;
     pointer-events: none; /* Отключаем взаимодействие с мышью */
     transition: opacity 0.3s ease; /* Плавный переход для видимости */
-    z-index: 2;
+    z-index: 100;
 
     padding: 20px; /* Устанавливаем отступы вокруг содержимого */
     box-sizing: border-box; /* Учитываем отступы и границы в размерах элемента */
@@ -166,9 +167,7 @@ body {
 /* РАБОЧАЯ ОБЛАСТЬ */
 
 .workarea{
-	border: 3px solid #D7D1CE;
 	margin: 30px 60px 30px 30px;
-	border-radius: 30px;
 	position: relative;
 	width: 100%;
 	height: auto;	
@@ -179,33 +178,36 @@ body {
 
 .upload-button {
     position: absolute;
-    top: 20px;
-    right: 20px;
+    /* top: 20px; */
+    right: 0px;
     padding: 10px 20px;
-    background-color: #4CAF50;
-    color: white;
+    background-color: #F5C2C2;
     border: none;
     border-radius: 40px;
     cursor: pointer;
-    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
 	font-family: Montserrat Alternates, -apple-system, Roboto, Helvetica, sans-serif;
 	font-weight: 500;
 	font-size: 14px;
     z-index: 3;
+    color: #595C5E;
+    transition: background-color 0.3s, color 0.3s;
 }
 
 .upload-button:hover {
-    background-color: #45a049;
+    background-color: #FF9C9C;
+    color: #323333;
 }
 
 .documents-container {
+    border: 3px solid #D7D1CE;
+    border-radius: 30px;
+    margin-top: 60px;
     height: 100%;
     overflow-y: auto;
 }
 
 .documents {
-    margin-top: 80px;
-    margin: 80px 30px 0px 30px;
+    margin: 40px 30px 0px 30px;
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
     grid-auto-rows: 160px;
@@ -285,4 +287,29 @@ body {
     color: #333;
     margin-top: 10px;
     text-align: center;
+}
+
+
+/* СПИННЕР */
+
+
+.spinner {
+    border: 4px solid rgba(0, 0, 0, 0.1);
+    border-top: 4px solid #f44141;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    animation: spin 0.8s linear infinite;
+    display: block;
+    position: absolute;
+    margin: auto; /* Центрирование */
+    top: 50%;
+    left: 50%;
+    transform: translateY(-50%) translateX(-50%);
+
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
 }

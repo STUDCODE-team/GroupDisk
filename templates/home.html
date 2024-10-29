@@ -39,14 +39,18 @@
             </div>
         <div class="workarea">
             <button class="upload-button">Загрузить файлы</button>
-            <div class="documents-container">
-                <div class="documents">
-                    <input type="file" id="fileSelectorInput" style="display: none;" multiple>
+            <input type="file" id="fileSelectorInput" style="display: none;" multiple>
+            
+            <div class="documents-container">                
+                <div id="loading-workarea" style="display: none;">
+                    <div class="spinner"></div>
                 </div>
+                <div class="documents"></div>
             </div>
         </div>
     </div>
         
+
     </body>
 
 </body>

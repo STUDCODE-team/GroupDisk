@@ -14,19 +14,51 @@ document.addEventListener('DOMContentLoaded', () => {
     getFiles();
 })
 
-function getFiles(parentId = null) {
-    fetch('/api/get_userfiles', {
-        method: 'POST',
-        body: {}
-    }).then(response => response.text())
-        .then(files => init(JSON.parse(files)));
+function showWorkAreaSpinner() {
+    document.getElementById("loading-workarea").style.display = "block";
 }
+
+function hideWorkAreaSpinner() {
+    document.getElementById("loading-workarea").style.display = "none";
+}
+
+function getFiles(parentId = null) {
+
+    const formData = new FormData();
+    formData.append("parentId", parentId)
+
+    httpRequest('/api/get_userfiles', formData, (data) => {
+        if (data.is_success)
+            init(data.files);
+        else
+            console.warn("responce is not success: ", JSON.stringify(data))
+    }, showWorkAreaSpinner, hideWorkAreaSpinner);
+}
+
+
+function uploadFiles(files, parentId = null) {
+    const formData = new FormData();
+
+    formData.append('parentId', parentId)
+    for (let i = 0; i < files.length; i++) {
+        formData.append('files', files[i]);
+    }
+
+    httpRequest('/api/upload_userfiles', formData, (data) => {
+        if (data.is_success)
+            getFiles()
+        else
+            console.warn("responce is not success: ", JSON.stringify(data))
+    });
+}
+
+
 
 function init(files) {
     documentsArea.innerHTML = '';
 
     for (let file of files) {
-        console.warn(file)
+        console.info(file)
         if (file.ext !== "...") {
             documentsArea.insertAdjacentHTML('beforeend', `
                 <div class="file-object">
@@ -107,17 +139,32 @@ fileSelectorInput.onchange = () => {
 }
 
 
-function uploadFiles(files) {
-    const formData = new FormData();
 
-    for (let i = 0; i < files.length; i++) {
-        formData.append('files', files[i]); // используем 'files' как ключ
-    }
 
-    // сделать отдельной функцией
-    fetch('/api/upload_userfiles', {
+function httpRequest(api, formData = null, callback = null, startCallback = null, endCallback = null) {
+
+    if (startCallback) startCallback()
+
+    fetch(api, {
         method: 'POST',
+        headers: { 
+            'Content-Type': 'application/json' 
+        },
         body: formData
-    }).then(response => response.text())
-      .then(data => getFiles());
+    })
+    .then(response => {
+        if (!response.ok) { 
+            throw new Error('Network response was not ok'); 
+        }
+        return response.text();
+    })
+    .then(data => {
+        data = JSON.parse(data);
+        if (callback) callback(data)
+        if (endCallback) endCallback()
+    })
+    .catch(error => {
+        console.error('Error fetching files:', error);
+        if (endCallback) endCallback()
+    });
 }
