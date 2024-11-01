@@ -1,94 +1,92 @@
 body {
-    
     background: linear-gradient(to bottom right, #F3EBE3, #E4EBFF);
     margin: 0;
     padding: 0;
-    height: 100vh; /* Убедитесь, что фон занимает всю высоту окна */
-	display: flex;
-	flex-direction: column;
+    height: 100vh; /* Убедитесь, что фон занимает 80% высоты окна */
+    display: flex;
+    flex-direction: column;
     justify-content: center; /* Чтобы элементы были по центру вертикали */
     align-items: center;
 }
 
 .header {
-	display: flex;
-	width: 100%;
-	height: min-content;
-	flex-wrap: wrap;
-	flex-direction: row;
-	align-items: center;
-	justify-content: space-between; /* Чтобы распределить элементы по сторонам */
+    display: flex;
+    width: 100%;
+    height: min-content;
+    flex-wrap: wrap;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between; /* Чтобы распределить элементы по сторонам */
 }
 
 .main-container {
-	display: flex;
+    display: flex;
     flex-direction: row;
     width: 100%;
-	height: 100%;
+    height: 100%;
     margin: auto 0;
-	z-index: 1;
+    z-index: 1;
     overflow: hidden;
 }
 
 /* ЛОГОТИП */
 
 .logo-container {
-	display: flex;
-	font-size: 20px;
-	color: rgba(255, 64, 64, 1);
-	font-weight: 600;
-	white-space: nowrap;
-	padding: 30px;
+    display: flex;
+    font-size: 16px; /* Уменьшено на 20% */
+    color: rgba(255, 64, 64, 1);
+    font-weight: 600;
+    white-space: nowrap;
+    padding: 24px; /* Уменьшено на 20% */
 }
 
 .logo {
-	object-fit: contain;
-	object-position: center;
-	width: 50px;
+    object-fit: contain;
+    object-position: center;
+    width: 40px; /* Уменьшено на 20% */
 }
 
 .brand-name {
     flex-basis: auto;
     margin: auto 0;
-    margin-left: 21px;
+    margin-left: 17px; /* Уменьшено на 20% */
     font-family: 'Montserrat Alternates', -apple-system, Roboto, Helvetica, sans-serif;
     font-weight: 600; /* SemiBold */
-    font-size: 40px; /* Изображение показывает 40px */
+    font-size: 32px; /* Уменьшено на 20% */
 }
 
 /* ПОИСК */
 
 .search-container {
     position: absolute;
-	left: 50%; /* Сдвигаем в центр */
+    left: 50%; /* Сдвигаем в центр */
     transform: translateX(-50%); /* Центрируем элемент по оси X */
-    width: 30%; 
+    width: 24%; /* Уменьшено на 20% */
 }
 
 .search-input {
     width: 100%;
-    padding: 10px 50px;
-    border-radius: 30px; /* Округлённые края */
+    padding: 8px 40px; /* Уменьшено на 20% */
+    border-radius: 24px; /* Уменьшено на 20% */
     border: none;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    font-size: 18px;
+    font-size: 14px; /* Уменьшено на 20% */
     background: #ecedee;
-    /* linear-gradient(145deg, #f3ebe3, #e4ebff); Градиентный фон */ 
     outline: none;
-	font-family: 'Montserrat Alternates', sans-serif; /* Стиль для текста */
+    font-family: 'Montserrat Alternates', sans-serif; /* Стиль для текста */
 }
 
 .search-input::placeholder {
     color: #aaa;
-    font-size: 16px;
+    font-size: 12px; /* Уменьшено на 20% */
 }
 
 .search-icon {
     position: absolute;
-    left: 10px;
+    left: 8px; /* Уменьшено на 20% */
     top: 50%;
     transform: translateY(-50%);
-    font-size: 20px;
+    font-size: 16px; /* Уменьшено на 20% */
     color: #aaa;
     pointer-events: none;
 }
@@ -96,38 +94,38 @@ body {
 /* ПАНЕЛЬ НАВИГАЦИИ */
 
 .sidebar {
-	display: flex;
-	flex-direction: column;
-	overflow: hidden;
-	align-items: center;
-	font-family: Montserrat Alternates, -apple-system, Roboto, Helvetica, sans-serif;
-	margin: 30px 0px 30px 0px;
-	width: 300px;
-	height: auto;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    align-items: center;
+    font-family: Montserrat Alternates, -apple-system, Roboto, Helvetica, sans-serif;
+    margin: 24px 0; /* Уменьшено на 20% */
+    width: 240px; /* Уменьшено на 20% */
+    height: auto;
 }
 
 .nav-item {
-	color: rgba(255, 64, 64, 1);
-	font-size: 24px;
-	font-weight: 500;
-	margin: 16px 0 16px 26px;
-	text-decoration: none;
-	padding: 7px 26px;
-	white-space: nowrap;
+    color: rgba(255, 64, 64, 1);
+    font-size: 20px; /* Уменьшено на 20% */
+    font-weight: 500;
+    margin: 12px 0 12px 21px; /* Уменьшено на 20% */
+    text-decoration: none;
+    padding: 5px 21px; /* Уменьшено на 20% */
+    white-space: nowrap;
 }
 
 .nav-item-active {
-	border-radius: 28px;
-	background-color: rgba(255, 64, 64, 1);
-	font-size: 24px;
-	color: rgba(255, 255, 255, 1);
-	font-weight: 600;
-	text-decoration: none;
-	padding: 7px 26px;
+    border-radius: 22px; /* Уменьшено на 20% */
+    background-color: rgba(255, 64, 64, 1);
+    font-size: 20px; /* Уменьшено на 20% */
+    color: rgba(255, 255, 255, 1);
+    font-weight: 600;
+    text-decoration: none;
+    padding: 5px 21px; /* Уменьшено на 20% */
 }
 
 .nav-item-logout {
-	margin: auto 0 40px 22px;
+    margin: auto 0 32px 18px; /* Уменьшено на 20% */
 }
 
 /* DROP AREA */
@@ -137,9 +135,9 @@ body {
     top: 0; /* Находимся в верхней части */
     left: 0; /* Прижимаемся к левому краю */
     width: 100%; /* Занимаем всю ширину */
-    height: 100%; /* Занимаем всю высоту рабочей области */
+    height: 80%; /* Уменьшено на 20% */
     background-color: rgba(255, 255, 255, 0.8); /* Полупрозрачный фон */
-    border: 6px dashed rgb(139, 139, 139);; /* Дизайн рамки для области сброса */
+    border: 4px dashed rgb(139, 139, 139); /* Уменьшено на 20% */
     display: flex; /* Используем flex для центрирования содержимого */
     align-items: center; /* Центрируем по вертикали */
     justify-content: center; /* Центрируем по горизонтали */
@@ -148,15 +146,14 @@ body {
     transition: opacity 0.3s ease; /* Плавный переход для видимости */
     z-index: 100;
 
-    padding: 20px; /* Устанавливаем отступы вокруг содержимого */
+    padding: 16px; /* Уменьшено на 20% */
     box-sizing: border-box; /* Учитываем отступы и границы в размерах элемента */
 }
 
-
 .drop-here {
-	font-size: 40px;
-	font-weight: 700;
-	font-family: Montserrat Alternates, -apple-system, Roboto, Helvetica, sans-serif;
+    font-size: 32px; /* Уменьшено на 20% */
+    font-weight: 700;
+    font-family: Montserrat Alternates, -apple-system, Roboto, Helvetica, sans-serif;
     text-align: center; /* Центрируем текст */
 }
 
@@ -167,28 +164,26 @@ body {
 
 /* РАБОЧАЯ ОБЛАСТЬ */
 
-.workarea{
-	margin: 30px 60px 30px 30px;
-	position: relative;
-	width: 100%;
-	height: auto;	
-	/* background-color: #f9eeee; */
+.workarea {
+    margin: 24px 48px 24px 24px; /* Уменьшено на 20% */
+    position: relative;
+    width: 100%;
+    height: auto;	
     display: flex;
     flex-direction: column;
 }
 
 .upload-button {
     position: absolute;
-    /* top: 20px; */
     right: 0px;
-    padding: 10px 20px;
+    padding: 8px 16px; /* Уменьшено на 20% */
     background-color: #F5C2C2;
     border: none;
-    border-radius: 40px;
+    border-radius: 32px; /* Уменьшено на 20% */
     cursor: pointer;
-	font-family: Montserrat Alternates, -apple-system, Roboto, Helvetica, sans-serif;
-	font-weight: 500;
-	font-size: 14px;
+    font-family: Montserrat Alternates, -apple-system, Roboto, Helvetica, sans-serif;
+    font-weight: 500;
+    font-size: 11px; /* Уменьшено на 20% */
     z-index: 3;
     color: #595C5E;
     transition: background-color 0.3s, color 0.3s;
@@ -200,56 +195,51 @@ body {
 }
 
 .documents-container {
-    border: 3px solid #D7D1CE;
-    border-radius: 30px;
-    margin-top: 60px;
+    border: 2px solid #D7D1CE; /* Уменьшено на 20% */
+    border-radius: 24px; /* Уменьшено на 20% */
+    margin-top: 48px; /* Уменьшено на 20% */
     height: 100%;
     overflow-y: auto;
 }
 
 .documents {
-    margin: 40px 30px 0px 30px;
+    margin: 32px 24px 0px 24px; /* Уменьшено на 20% */
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
-    grid-auto-rows: 160px;
-    gap: 8px;
+    grid-template-columns: repeat(auto-fill, minmax(104px, 1fr)); /* Уменьшено на 20% */
+    grid-auto-rows: 128px; /* Уменьшено на 20% */
+    gap: 6px; /* Уменьшено на 20% */
     height: auto;
 }
-
 
 .file-object {
     display: flex; /* Делает контейнер flex-контейнером */
     flex-direction: column;
     align-items: center; /* Центрирует элементы по вертикали (если нужно) */
-    width: 90px; /* Укажите ширину родительского элемента */
-    height: 160px; /* Автоматическая высота */
+    width: 72px; /* Уменьшено на 20% */
+    height: 128px; /* Уменьшено на 20% */
 }
-
 
 .folder-icon {
-    width: 90px; /* Укажите ширину иконки */
+    width: 72px; /* Уменьшено на 20% */
     height: auto; /* Автоматическая высота */
-    top: 10px; /* Положение сверху */
-    left: 10px; /* Положение слева */
+    top: 8px; /* Уменьшено на 20% */
+    left: 8px; /* Уменьшено на 20% */
 }
-
 
 .file-icon {
     width: fit-content;
-    height: 90px;
+    height: 72px; /* Уменьшено на 20% */
     background-color: #f0f0f0;
     border: 2px solid #ccc;
     border-radius: 5px;
     position: relative;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-    overflow: hidden;
-    /* padding: 10px; */
-    padding: 0 10px;
+    padding: 0 8px; /* Уменьшено на 20% */
 }
 
 .file-corner {
-    width: 30px;
-    height: 30px;
+    width: 24px; /* Уменьшено на 20% */
+    height: 24px; /* Уменьшено на 20% */
     background-color: #e0e0e0;
     position: absolute;
     top: 0;
@@ -261,22 +251,22 @@ body {
 .file-extension {
     background-color: #007bff;
     color: white;
-    padding: 4px 0px;
+    padding: 3px 0px; /* Уменьшено на 20% */
     border-radius: 3px;
     display: inline-block;
     position: relative;
-    top: 45px;
-    right: 10px;
+    top: 36px; /* Уменьшено на 20% */
+    right: 8px; /* Уменьшено на 20% */
     z-index: 1;
     font-family: Montserrat Alternates, -apple-system, Roboto, Helvetica, sans-serif;
     font-weight: 700;
-    font-size: 18px;
-    width: 52px;
+    font-size: 14px; /* Уменьшено на 20% */
+    width: 42px; /* Уменьшено на 20% */
     text-align: center;
 }
 
 .file-name {
-    width: 80px; /* Ширина элемента */
+    width: 64px; /* Уменьшено на 20% */
     overflow: hidden; /* Скрывает переполнение */
     display: -webkit-box; /* Использует flexbox для отображения */
     -webkit-box-orient: vertical; /* Устанавливает направление на вертикальное */
@@ -284,22 +274,20 @@ body {
     word-wrap: break-word; /* Переносит слова, если они слишком длинные */
     font-family: Montserrat Alternates, -apple-system, Roboto, Helvetica, sans-serif;
     font-weight: 600;
-    font-size: 14px;
+    font-size: 11px; /* Уменьшено на 20% */
     color: #333;
-    margin-top: 10px;
+    margin-top: 8px; /* Уменьшено на 20% */
     text-align: center;
 }
 
-
 /* СПИННЕР */
-
 
 .spinner {
     border: 4px solid rgba(0, 0, 0, 0.1);
     border-top: 4px solid #f44141;
     border-radius: 50%;
-    width: 30px;
-    height: 30px;
+    width: 24px; /* Уменьшено на 20% */
+    height: 24px; /* Уменьшено на 20% */
     animation: spin 0.8s linear infinite;
     display: block;
     position: absolute;
@@ -307,7 +295,6 @@ body {
     top: 50%;
     left: 50%;
     transform: translateY(-50%) translateX(-50%);
-
 }
 
 @keyframes spin {
