@@ -101,7 +101,7 @@ def upload_file(parent_file_id, file):
 
 # Returns the user as the owner if there's no parent folder, otherwise the owner of the folder
 def get_owner(parent_file_id, user_id):
-    if parent_file_id is None:
+    if parent_file_id == "":
         return user_id
     return db.child(f'files/{parent_file_id}/owner').get().val()
 
