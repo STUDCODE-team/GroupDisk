@@ -1,4 +1,10 @@
 body {
+    zoom: 80%
+} 
+
+
+body {
+    
     background: linear-gradient(to bottom right, #F3EBE3, #E4EBFF);
     margin: 0;
     padding: 0;
